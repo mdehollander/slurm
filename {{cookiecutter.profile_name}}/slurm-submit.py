@@ -4,6 +4,7 @@ import os
 import re
 import argparse
 import subprocess
+import getpass
 
 from snakemake.utils import read_job_properties
 
@@ -115,6 +116,8 @@ if arg_dict["partition"] is None:
 if arg_dict["account"] is None:
     if "{{cookiecutter.account}}" != "":
         arg_dict["account"] = "{{cookiecutter.account}}"
+    else:
+        arg_dict["account"] = getpass.getuser()
 
 # Ensure output folder for Slurm log files exist.
 # This is a bit hacky; will run for every Slurm submission...
